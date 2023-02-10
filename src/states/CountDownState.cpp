@@ -12,16 +12,20 @@
 #include <src/text_utilities.hpp>
 #include <src/states/CountDownState.hpp>
 #include <src/states/StateMachine.hpp>
+#include <src/modes/BaseGameMode.hpp>
 
-CountDownState::CountDownState(StateMachine* sm) noexcept
+CountDownState::CountDownState(StateMachine *sm) noexcept
     : BaseState{sm}
 {
-
 }
 
-void CountDownState::enter(std::shared_ptr<World> _world, std::shared_ptr<Bird> _bird) noexcept
+void CountDownState::enter(std::shared_ptr<World> _world, std::shared_ptr<Bird> _bird, std::shared_ptr<BaseGameMode> _mode) noexcept
 {
     world = std::make_shared<World>(false);
+
+    mode = _mode;
+
+    mode->set_world(world);
 }
 
 void CountDownState::update(float dt) noexcept
@@ -35,14 +39,14 @@ void CountDownState::update(float dt) noexcept
 
         if (counter == 0)
         {
-            state_machine->change_state("playing", world);
+            state_machine->change_state("playing", world, nullptr, mode);
         }
     }
 
     world->update(dt);
 }
 
-void CountDownState::render(sf::RenderTarget& target) const noexcept
+void CountDownState::render(sf::RenderTarget &target) const noexcept
 {
     world->render(target);
     render_text(target, Settings::VIRTUAL_WIDTH / 2, Settings::VIRTUAL_HEIGHT / 2, std::to_string(counter), Settings::HUGE_TEXT_SIZE, "font", sf::Color::White, true);

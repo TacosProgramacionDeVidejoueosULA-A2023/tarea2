@@ -61,3 +61,9 @@ struct Settings
 
     static void load_fonts();
 };
+
+namespace MenuOptions
+{
+    static const std::string NormalModeOption = "Normal Mode";
+    static const std::string HardModeOption = "Hard Mode";
+}

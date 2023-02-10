@@ -13,17 +13,16 @@
 #include <src/states/StateMachine.hpp>
 #include <src/states/TitleScreenState.hpp>
 
-TitleScreenState::TitleScreenState(StateMachine* sm) noexcept
+TitleScreenState::TitleScreenState(StateMachine *sm) noexcept
     : BaseState{sm}, world{}
 {
-
 }
 
-void TitleScreenState::handle_inputs(const sf::Event& event) noexcept
+void TitleScreenState::handle_inputs(const sf::Event &event) noexcept
 {
     if (event.key.code == sf::Keyboard::Enter)
     {
-        state_machine->change_state("count_down");
+        state_machine->change_state("menu");
     }
 }
 
@@ -32,7 +31,7 @@ void TitleScreenState::update(float dt) noexcept
     world.update(dt);
 }
 
-void TitleScreenState::render(sf::RenderTarget& target) const noexcept 
+void TitleScreenState::render(sf::RenderTarget &target) const noexcept
 {
     world.render(target);
     render_text(target, Settings::VIRTUAL_WIDTH / 2, Settings::VIRTUAL_HEIGHT / 3, "Flappy Bird", Settings::FLAPPY_TEXT_SIZE, "flappy", sf::Color::White, true);

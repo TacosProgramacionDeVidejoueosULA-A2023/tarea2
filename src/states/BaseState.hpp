@@ -14,6 +14,7 @@
 
 #include <SFML/Graphics.hpp>
 
+class BaseGameMode;
 class StateMachine;
 class World;
 class Bird;
@@ -25,7 +26,7 @@ public:
 
     virtual ~BaseState() {}
 
-    virtual void enter(std::shared_ptr<World> world, std::shared_ptr<Bird> bird) noexcept {}
+    virtual void enter(std::shared_ptr<World> world, std::shared_ptr<Bird> bird, std::shared_ptr<BaseGameMode> mode) noexcept {}
 
     virtual void exit() noexcept {}
 
