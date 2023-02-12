@@ -9,6 +9,8 @@
 #include <src/states/StateMachine.hpp>
 #include <src/text_utilities.hpp>
 
+//Normal mode
+
 NormalMode::NormalMode(std::shared_ptr<Bird> _bird, std::shared_ptr<World> _world, StateMachine* _sm)
     : BaseGameMode{_bird, _world, _sm}
 {
