@@ -27,6 +27,7 @@ std::unordered_map<std::string, sf::Sound> Settings::sounds{};
 std::unordered_map<std::string, sf::Font> Settings::fonts{};
 
 sf::Music Settings::music{};
+sf::Music Settings::power_music{};
 
 void Settings::init()
 {
@@ -66,6 +67,13 @@ void Settings::load_textures()
     }
 
     Settings::textures["Log"] = texture;
+
+    if (!texture.loadFromFile(Settings::GRAPHICS_PATH / "power.png"))
+    {
+        throw std::runtime_error{"Error loading texture graphics/power.png"};
+    }
+
+    Settings::textures["power"] = texture;
 }
 
 void Settings::load_sounds()
@@ -117,6 +125,21 @@ void Settings::load_sounds()
     {
         throw std::runtime_error{"Error loading music sounds/marios_way.ogg"};
     }
+
+    if (!Settings::power_music.openFromFile(Settings::SOUNDS_PATH / "power_music.wav"))
+    {
+        throw std::runtime_error{"Error loading music sounds/power_music.ogg"};
+    }
+
+    if (!buffer.loadFromFile(Settings::SOUNDS_PATH / "crash.wav"))
+    {
+        throw std::runtime_error{"Error loading sound sounds/crash.wav"};
+    }
+
+    result = Settings::sound_buffers.emplace("crash", buffer);
+
+    sound.setBuffer(result.first->second);
+    Settings::sounds["crash"] = sound;
 }
 
 void Settings::load_fonts()

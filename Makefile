@@ -1,10 +1,10 @@
-CXX = clang++ -std=c++17
+CXX = clang++ -std=c++17 -g
 
 INCLUDE = -I.
 
 BUILD_DIR = build
 
-OBJ_RULES = text_utilities.o Settings.o Game.o Bird.o Log.o LogPair.o World.o StateMachine.o TitleScreenState.o CountDownState.o PlayingState.o PauseState.o
+OBJ_RULES = text_utilities.o Settings.o Game.o Bird.o Log.o LogPair.o World.o StateMachine.o TitleScreenState.o CountDownState.o PlayingState.o PauseState.o MenuScreenState.o NormalMode.o HardMode.o PowerUp.o
 
 LIBS = -lsfml-graphics -lsfml-audio -lsfml-window -lsfml-system $(BUILD_DIR)/*.o
 
@@ -20,6 +20,9 @@ text_utilities.o: $(BUILD_DIR) src/text_utilities.hpp src/text_utilities.cpp
 Game.o: $(BUILD_DIR) src/Game.hpp src/Game.cpp
 	$(CXX) -c $(INCLUDE) src/Game.cpp -o $(BUILD_DIR)/$@
 
+GameBoard.o: $(BUILD_DIR) src/GameBoard.hpp src/GameBoard.cpp
+	$(CXX) -c $(INCLUDE) src/GameBoard.cpp -o $(BUILD_DIR)/$@
+
 Bird.o: $(BUILD_DIR) src/Bird.hpp src/Bird.cpp
 	$(CXX) -c $(INCLUDE) src/Bird.cpp -o $(BUILD_DIR)/$@
 	
@@ -32,8 +35,17 @@ LogPair.o: $(BUILD_DIR) src/LogPair.hpp src/LogPair.cpp
 World.o: $(BUILD_DIR) src/World.hpp src/World.cpp
 	$(CXX) -c $(INCLUDE) src/World.cpp -o $(BUILD_DIR)/$@
 
+PowerUp.o: $(BUILD_DIR) src/PowerUp.hpp src/PowerUp.cpp
+	$(CXX) -c $(INCLUDE) src/PowerUp.cpp -o $(BUILD_DIR)/$@
+
 StateMachine.o: $(BUILD_DIR) src/states/StateMachine.hpp src/states/StateMachine.cpp
 	$(CXX) -c $(INCLUDE) src/states/StateMachine.cpp -o $(BUILD_DIR)/$@
+
+NormalMode.o: $(BUILD_DIR) src/modes/NormalMode.hpp src/modes/NormalMode.cpp
+	$(CXX) -c $(INCLUDE) src/modes/NormalMode.cpp -o $(BUILD_DIR)/$@
+
+HardMode.o: $(BUILD_DIR) src/modes/HardMode.hpp src/modes/HardMode.cpp
+	$(CXX) -c $(INCLUDE) src/modes/HardMode.cpp -o $(BUILD_DIR)/$@
 
 TitleScreenState.o: $(BUILD_DIR) src/states/TitleScreenState.hpp src/states/TitleScreenState.cpp
 	$(CXX) -c $(INCLUDE) src/states/TitleScreenState.cpp -o $(BUILD_DIR)/$@
@@ -47,6 +59,8 @@ PlayingState.o: $(BUILD_DIR) src/states/PlayingState.hpp src/states/PlayingState
 PauseState.o: $(BUILD_DIR) src/states/PauseState.hpp src/states/PauseState.cpp
 	$(CXX) -c $(INCLUDE) src/states/PauseState.cpp -o $(BUILD_DIR)/$@
 
+MenuScreenState.o: $(BUILD_DIR) src/states/MenuScreenState.hpp src/states/MenuScreenState.cpp
+	$(CXX) -c $(INCLUDE) src/states/MenuScreenState.cpp -o $(BUILD_DIR)/$@
 
 $(BUILD_DIR):
 	mkdir -p $@

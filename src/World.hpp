@@ -18,6 +18,7 @@
 
 #include <src/Factory.hpp>
 #include <src/LogPair.hpp>
+#include <src/PowerUp.hpp>
 
 class World
 {
@@ -36,7 +37,12 @@ public:
 
     void update(float dt) noexcept;
 
+    void update_hard_mode(float dt) noexcept;
+
     void render(sf::RenderTarget& target) const noexcept;
+
+     bool collides_with_power(const sf::FloatRect& rect) noexcept;
+     
 private:
     bool generate_logs;
 
@@ -46,12 +52,17 @@ private:
     float background_x{0.f};
     float ground_x{0.f};
 
+    Factory<PowerUp> powers_factory;
     Factory<LogPair> log_factory;
 
+    bool power_up{false};
+    std::shared_ptr<PowerUp> power;
     std::list<std::shared_ptr<LogPair>> logs;
 
     std::mt19937 rng;
 
     float logs_spawn_timer{0.f};
+    float logs_spawn_time;
+    float power_spawn_timer{0.f};
     float last_log_y{0.f};
 };

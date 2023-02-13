@@ -13,6 +13,7 @@
 #include <src/Bird.hpp>
 #include <src/World.hpp>
 #include <src/states/BaseState.hpp>
+#include <src/modes/BaseGameMode.hpp>
 
 class PlayingState: public BaseState
 {
@@ -20,7 +21,7 @@ class PlayingState: public BaseState
 public:
     PlayingState(StateMachine* sm) noexcept;
 
-    void enter(std::shared_ptr<World> _world = nullptr, std::shared_ptr<Bird> _bird = nullptr) noexcept override;
+    void enter(std::shared_ptr<World> _world = nullptr, std::shared_ptr<Bird> _bird = nullptr, std::shared_ptr<BaseGameMode> current_mode = nullptr) noexcept override;
 
     void handle_inputs(const sf::Event& event) noexcept override;
 
@@ -31,5 +32,7 @@ public:
 private:
     std::shared_ptr<Bird> bird;
     std::shared_ptr<World> world;
+    float powerup_limit_timer{0.f};
     int score{0};
+    std::shared_ptr<BaseGameMode> current_mode;
 };

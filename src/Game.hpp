@@ -20,14 +20,14 @@ class Game
 public:
     Game();
 
-    Game(const Game&) = delete;
+    Game(const Game &) = delete;
 
-    Game& operator = (Game) = delete;
+    Game &operator=(Game) = delete;
 
-    sf::RenderWindow& get_window() noexcept;
+    sf::RenderWindow &get_window() noexcept;
 
-    void handle_inputs(const sf::Event& event) noexcept;
-
+    void handle_inputs(const sf::Event &event) noexcept;
+                                                              
     void update(float dt) noexcept;
 
     void render() noexcept;
