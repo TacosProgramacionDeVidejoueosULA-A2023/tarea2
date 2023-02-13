@@ -12,7 +12,7 @@
 #include <src/Bird.hpp>
 
 Bird::Bird(float _x, float _y, float w, float h) noexcept
-    : x{_x}, y{_y}, width{w}, height{h}, vy{0.f}, sprite{Settings::textures["bird"]}
+    : x{_x}, y{_y}, width{w}, height{h}, vy{0.f}, vx{0.f}, sprite{Settings::textures["bird"]}
 {
     sprite.setPosition(x, y);
 }
@@ -30,6 +30,31 @@ void Bird::jump() noexcept
     }
 }
 
+void Bird::turn_ghost(bool _ghost) noexcept
+{
+    ghost = _ghost;
+    if(ghost){
+        sprite.setColor(sf::Color(255, 255, 255, 128));
+    } else {
+        sprite.setColor(sf::Color(255, 255, 255));
+    }
+}
+
+bool Bird::is_ghost() const noexcept
+{
+    return ghost;
+}
+
+void Bird::move_left() noexcept
+{
+    vx = -Settings::BIRD_SPEED;
+}
+
+void Bird::move_right() noexcept
+{
+    vx = Settings::BIRD_SPEED;
+}
+
 void Bird::update(float dt) noexcept
 {
     vy += Settings::GRAVITY * dt;
@@ -42,7 +67,15 @@ void Bird::update(float dt) noexcept
     }
 
     y += vy * dt;
+    x += vx * dt;
+    vx = 0.f;
+
     sprite.setPosition(x, y);
+    if(ghost){
+        sprite.setColor(sf::Color(255, 255, 255, 128));
+    } else {
+        sprite.setColor(sf::Color(255, 255, 255));
+    }
 }
 
 void Bird::render(sf::RenderTarget& target) const noexcept

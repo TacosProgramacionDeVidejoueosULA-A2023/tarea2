@@ -25,7 +25,7 @@ void MenuScreenState::handle_inputs(const sf::Event &event) noexcept
         if (options[selected] == MenuOptions::NormalModeOption)
             mode = std::make_shared<NormalMode>(nullptr, nullptr, state_machine);
         else if (options[selected] == MenuOptions::HardModeOption)
-            mode = std::make_shared<NormalMode>(nullptr, nullptr, state_machine);
+            mode = std::make_shared<HardMode>(nullptr, nullptr, state_machine);
 
         state_machine->change_state("count_down", nullptr, nullptr, mode);
     }

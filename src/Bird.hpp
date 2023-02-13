@@ -25,6 +25,14 @@ public:
 
     void jump() noexcept;
 
+    void turn_ghost(bool _ghost) noexcept;
+
+    bool is_ghost() const noexcept;
+
+    void move_left() noexcept;
+
+    void move_right() noexcept;
+
     void update(float dt) noexcept;
 
     void render(sf::RenderTarget& target) const noexcept;
@@ -35,6 +43,8 @@ private:
     float width;
     float height;
     float vy;
+    float vx;
     sf::Sprite sprite;
+    bool ghost{false};
     bool jumping{false};
 };
